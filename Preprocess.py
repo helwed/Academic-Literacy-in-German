@@ -40,21 +40,6 @@ def makedirs(corpus):
     return exists
 
 
-def pipeline():
-    # Add txt files into folder "txt"
-    makedirs("Example")
-    par = Parse.Parse(nlp, "Example", "Data/Example")
-    par.parse_txt()
-    print(
-        "Please normalise the files ++ Copy folder orig+orig ++ Change new name to orig+target ++ normalise third row of every file in the new folder")
-    # if normalisation is needed, this happens here: modify the files saves in orig+orig and save it as orig+target
-    # ---normalization---
-    # p.parse_target()
-    # dimlex = Parse.ReadDimlex()
-    # a = Annotate.Annotation(nlp, "Os", p.get_corpus(), dimlex.get_dict())
-    # a.annotate_simple()
-    # a.print_tsv()
-
 
 if __name__ == '__main__':
     try:

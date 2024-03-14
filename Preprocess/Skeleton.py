@@ -12,6 +12,7 @@ class Skeleton:
         self.chain = {}  # contains all annotated chains
         self.raw = {}
         self.tok = 0  # amount of token
+        self.topics = {}  # contains the files and their topics
 
     def pipe(self):
         """
@@ -21,14 +22,14 @@ class Skeleton:
         self.read_files()
         self.analyse_preamble()
 
-    def read_files(self):
+    def read_files(self, folder):
         """
         Function reads files and preamble
         """
         # for every file in the corpus file
-        for file in os.listdir("Data/" + self.name):
+        for file in os.listdir("Data/" + self.name + "/" + folder):
             # open file and save text and preamble in lists
-            with open("Data/" + self.name + "/" + file, mode="r", encoding="utf-8") as inc_file:
+            with open("Data/" + self.name + "/" + folder + "/" + file, mode="r", encoding="utf-8") as inc_file:
                 self.preamble[file], self.corpus[file], self.raw[file] = [], [], []
                 # for every line: if line long enough, save text amd preamble
                 for line in inc_file.readlines():
@@ -68,3 +69,14 @@ class Skeleton:
             # for every element: save index as index in list of categories
             for element in range(len(new_list)):
                 self.categories[file][new_list[element]] = element
+
+    def analyse_topics(self):
+        """
+        Function reads file with topics
+        """
+        with open("Data/Additional_Data/topic_" + self.name + ".txt") as infile:
+            content = infile.readlines()
+        for line in content[1:]:
+            zoomin = line.strip().split("\t")
+            self.topics[zoomin[0]] = zoomin[1]
+
