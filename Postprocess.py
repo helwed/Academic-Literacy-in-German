@@ -4,9 +4,16 @@ from Postprocess.ProcessAnnotated import AdditionalAnalyses
 import os
 
 def unpack_folders(path):
+    """
+    Unpacks the folders that were created by Inception
+    :param path: path to the files
+    """
+    # for every folder in the directory
     for folder in os.listdir(path):
         if not folder.startswith('.'):
+            # for every text annotated
             for file in os.listdir(path + "/" + folder):
+                # rewrite file name in new folder
                 if not file.startswith('.') and file != "INITIAL_CAS.tsv":
                     #ToDo: Need to write something to delete annotators name (or just not name it in general?)
                     #new = folder.replace(".tsv","") + "_" + file
@@ -34,9 +41,16 @@ def makedirs(corpus):
     return exists
 
 def create_lists(name):
+    """
+    Creating lists to add more information to the csv files
+    :param name:
+    :return:
+    """
     list_texts = []
+    # Add all text files to a list
     for text in os.listdir("Data/" + name + "/tsv/"):
         list_texts.append(text)
+    # create list of annotators and of topics
     l = ListAnno(list_texts, ["Annotator"], name)
     l.list()
     l.list_topics()

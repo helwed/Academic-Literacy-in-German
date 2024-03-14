@@ -74,8 +74,10 @@ class Skeleton:
         """
         Function reads file with topics
         """
+        # Read topic file
         with open("Data/Additional_Data/topic_" + self.name + ".txt") as infile:
             content = infile.readlines()
+        # save topics in dictionary
         for line in content[1:]:
             zoomin = line.strip().split("\t")
             self.topics[zoomin[0]] = zoomin[1]

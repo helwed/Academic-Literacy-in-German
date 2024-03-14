@@ -2,28 +2,38 @@ from Preprocess.Skeleton import Skeleton
 
 class ListAnno:
     def __init__(self, texts, annotators, name):
+        """
+        Initializes object of the class ListAnno
+        :param texts: texts to be listed
+        :param annotators: annotators that worked on the texts
+        :param name: name of the corpus
+        """
         self.texts = texts
         self.annotators = annotators
         self.name = name
 
     def list(self):
         """
-        Method lists all annotators in a textfile (Beldeko)
-        :return:
+        Method lists all annotators in a text file
         """
+        # Open text file to save annotators
         with open("Data/Additional_Data/annotator_overview_" + self.name + ".txt", mode="w", encoding="utf-8") as outfile:
+            # print row headers
             print("textfile", "Annotated_by", sep="\t", file=outfile)
+            # print default annotator for every text
             for text in sorted(self.texts):
                 if not text.startswith("."):
                     print(text, "Annotator.tsv", sep="\t", file=outfile)
 
     def list_topics(self):
         """
-
-        :return:
+        Method lists all topics in a text file
         """
+        # Open text file to save topics
         with open("Data/Additional_Data/topic_" + self.name + ".txt", mode="w", encoding="utf-8") as outfile:
+            # print row headers
             print("textfile", "topic", sep="\t", file=outfile)
+            # print default topic for every file
             for text in sorted(self.texts):
                 if not text.startswith("."):
                     print(text, "Topic", sep="\t", file=outfile)
