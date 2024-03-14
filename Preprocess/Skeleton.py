@@ -1,5 +1,6 @@
 import os
 
+
 class Skeleton:
     def __init__(self, pcorpus):
         self.name = pcorpus  # is used to name the files
@@ -10,7 +11,7 @@ class Skeleton:
         self.categories = {}  # translation between preamble and categories saves (name > index)
         self.chain = {}  # contains all annotated chains
         self.raw = {}
-        self.tok = 0 #amount of token
+        self.tok = 0  # amount of token
 
     def pipe(self):
         """
@@ -38,7 +39,6 @@ class Skeleton:
                             self.preamble[file].append(line.strip())
                         self.raw[file].append(line.strip())
 
-
     def analyse_preamble(self):
         """
         For every saved preamble: dissect
@@ -53,8 +53,8 @@ class Skeleton:
             new_list = []
             # for every element found in the preamble: save
             for el in self.preamble[file]:
-                #if "de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.SurfaceForm" not in el:
-               list_file.append(el.split("|")[1:])
+                # if "de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.SurfaceForm" not in el:
+                list_file.append(el.split("|")[1:])
             # for every element: save in new list
             for l in list_file:
                 if isinstance(l, list):
@@ -62,7 +62,7 @@ class Skeleton:
                         if cat not in new_list:
                             new_list.append(cat)
                         else:
-                            new_list.append(cat+"2")
+                            new_list.append(cat + "2")
                 else:
                     new_list.append(l)
             # for every element: save index as index in list of categories

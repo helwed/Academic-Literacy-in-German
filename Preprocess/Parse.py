@@ -2,6 +2,7 @@ import os
 import xml.etree.ElementTree as ElT
 import sys
 
+
 class Parse:
 
     def __init__(self, nlp, name, path):
@@ -12,7 +13,7 @@ class Parse:
         :param path: path to the directory
         """
         self.name = name
-        self.corpus = {}   # dictionary to save the corpus
+        self.corpus = {}  # dictionary to save the corpus
         self.path = path
         self.nlp = nlp
 
@@ -94,6 +95,7 @@ class Parse:
         """
         return self.corpus
 
+
 class ReadDimlex:
     """ Class helps to read the DimLex - an XML file full of German connectives"""
 
@@ -102,7 +104,7 @@ class ReadDimlex:
         Initiates DimLex and starts to read the data
         """
         try:
-            self.tree = ElT.parse('Data/Additional_Data/DimLex.xml')
+            self.tree = ElT.parse('../Data/Additional_Data/DimLex.xml')
         except FileNotFoundError:
             print("Please add the DimLex.xml file to the folder 'Data/Additional_Data'")
             sys.exit(1)
@@ -155,4 +157,3 @@ class ReadDimlex:
         :return: dictionary with all the connectives
         """
         return self.connective_dict
-
