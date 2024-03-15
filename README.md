@@ -16,7 +16,7 @@ If you want to add new sentence boundaries:
 3. Start Boundaries.py anew
 
 # Postprocessing pipeline
-Steps
+Steps:
 1. Start Postprocess.py to start processing files
 2. The program will ask you to fill in lists of topics and annotators
 3. Start Postprocess.py again
