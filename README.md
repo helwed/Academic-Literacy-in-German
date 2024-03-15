@@ -16,3 +16,9 @@ If you want to add new sentence boundaries:
 3. Start Boundaries.py anew
 
 #Postprocessing pipeline
+Steps
+1. Start Postprocess.py to start processing files
+2. The program will ask you to fill in lists of topics and annotators
+3. Start Postprocess.py again
+4. Connectives: The program will ask you to merge all connective constructions
+5. Start Postprocess.py again
