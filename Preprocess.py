@@ -40,7 +40,6 @@ def makedirs(corpus):
     return exists
 
 
-
 if __name__ == '__main__':
     try:
         name = sys.argv[1]

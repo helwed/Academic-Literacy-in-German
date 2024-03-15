@@ -1,5 +1,6 @@
 from Preprocess.Skeleton import Skeleton
 
+
 class ListAnno:
     def __init__(self, texts, annotators, name):
         """
@@ -17,7 +18,8 @@ class ListAnno:
         Method lists all annotators in a text file
         """
         # Open text file to save annotators
-        with open("Data/Additional_Data/annotator_overview_" + self.name + ".txt", mode="w", encoding="utf-8") as outfile:
+        with open("Data/Additional_Data/annotator_overview_" + self.name + ".txt", mode="w",
+                  encoding="utf-8") as outfile:
             # print row headers
             print("textfile", "Annotated_by", sep="\t", file=outfile)
             # print default annotator for every text
@@ -37,6 +39,7 @@ class ListAnno:
             for text in sorted(self.texts):
                 if not text.startswith("."):
                     print(text, "Topic", sep="\t", file=outfile)
+
 
 class AdditionalAnalyses(Skeleton):
     def __init__(self, pcorpus):
@@ -95,7 +98,7 @@ class AdditionalAnalyses(Skeleton):
                         print(topic + "\t" + str(file) + "\t" + "s" + str(sen) + "\t" + str(freq[sen]), file=outfile)
                     print(topic + "\t" + file.replace(".tsv", "") + "\t" + str(sums), file=outfile2)
 
-    def print_POS(self):
+    def print_pos(self):
         """
                 function counts token per text and per sentence
                 """

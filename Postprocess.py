@@ -1,7 +1,9 @@
 import sys
 from Postprocess.ProcessAnnotated import ListAnno
 from Postprocess.ProcessAnnotated import AdditionalAnalyses
+from Postprocess.ProcessConnectives import Connective
 import os
+
 
 def unpack_folders(path):
     """
@@ -15,12 +17,13 @@ def unpack_folders(path):
             for file in os.listdir(path + "/" + folder):
                 # rewrite file name in new folder
                 if not file.startswith('.') and file != "INITIAL_CAS.tsv":
-                    #ToDo: Need to write something to delete annotators name (or just not name it in general?)
-                    #new = folder.replace(".tsv","") + "_" + file
+                    # ToDo: Need to write something to delete annotators name (or just not name it in general?)
+                    # new = folder.replace(".tsv","") + "_" + file
                     new = folder
-                    with open(path + "/" + folder + "/" + file, mode = "r", encoding = "utf-8") as infile:
+                    with open(path + "/" + folder + "/" + file, mode="r", encoding="utf-8") as infile:
                         with open(path + "_new/" + new, mode="w", encoding="utf-8") as outfile:
-                            print(infile.read(), file = outfile)
+                            print(infile.read(), file=outfile)
+
 
 def makedirs(corpus):
     """
@@ -40,45 +43,71 @@ def makedirs(corpus):
         pass
     return exists
 
-def create_lists(name):
+
+def create_lists(pname):
     """
     Creating lists to add more information to the csv files
-    :param name:
-    :return:
+    :param pname: name of the corpus
     """
     list_texts = []
     # Add all text files to a list
-    for text in os.listdir("Data/" + name + "/tsv/"):
+    for text in os.listdir("Data/" + pname + "/tsv/"):
         list_texts.append(text)
     # create list of annotators and of topics
-    l = ListAnno(list_texts, ["Annotator"], name)
+    l = ListAnno(list_texts, ["Annotator"], pname)
     l.list()
     l.list_topics()
 
+
 def start_analyses(pname):
     """
-        Function allows to engange complete pipeline
+        Function allows to engage complete pipeline
     """
     # read file and preanalyse
-    Ana = AdditionalAnalyses(pname)
-    Ana.read_files("tsv_new")
-    Ana.analyse_preamble()
-    Ana.analyse_topics()
+    ana = AdditionalAnalyses(pname)
+    ana.read_files("tsv_new")
+    ana.analyse_preamble()
+    ana.analyse_topics()
     # Counting!
-    Ana.count_nouns()
-    Ana.count_token()
-    Ana.print_POS()
+    ana.count_nouns()
+    ana.count_token()
+    ana.print_pos()
+
+
+def connective_analyses(pname):
+    """
+    Function allows to start the connective pipeline
+    :param pname: name of the corpus
+    """
+    con = Connective(pname)
+    con.analyse_topics()
+    con.read_files("tsv_new")
+    con.filter_connectives()
+    try:
+        con.reformat_manual()
+        con.write_combi()
+        con.adapt_for_r()
+    except FileNotFoundError:
+        print("\nThe connectives have been sorted into multi_word and single connectives +++ "
+              "Please reformat multiwords and change name to 'con_multi_results_manual.csv'")
+        print("To do that: Delete numbers in brackets such as '[2]' "
+              "and write the connectives belonging together in one line.\n"
+              "Example: 01.tsv	um zu	APPR+PTKZU	02_Contingency	00_Multiword	22\n")
+
 
 if __name__ == '__main__':
     try:
         name = sys.argv[1]
     except IndexError:
         name = input("What is the name of the corpus?")
-    print("Welcome! The program starts to unpack folder {} now.".format(name))
+    print("\nWelcome! The program starts to unpack folder {} now.".format(name))
     makedirs(name)
     unpack_folders("Data/" + name + "/tsv")
-    print("Creating empty lists to fill with annotators and topics +++ Please fill if you want it added to the csv-files for R")
+    print("Creating empty lists to fill with annotators and topics +++ "
+          "Please fill if you want it added to the csv-files for R\n")
     create_lists(name)
+    print("Processing starts...")
     start_analyses(name)
     print("Counted nouns, tokens and POS +++ New files can be found in Data/{}/results".format(name))
-
+    connective_analyses(name)
+    print("Listed connectives +++ New files can be found in Data/{}/results".format(name))

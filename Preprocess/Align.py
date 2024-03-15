@@ -1,5 +1,6 @@
 import os
 
+
 class SentenceAligner:
     """
     Class allows to add the annotations and align the sentences (according to new boundaries)

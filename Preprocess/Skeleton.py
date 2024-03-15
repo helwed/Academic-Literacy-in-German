@@ -19,7 +19,7 @@ class Skeleton:
         Method reads files and extracts preamble
         :return:
         """
-        self.read_files()
+        self.read_files("tsv")
         self.analyse_preamble()
 
     def read_files(self, folder):
