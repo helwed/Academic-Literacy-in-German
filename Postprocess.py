@@ -1,7 +1,7 @@
 import sys
-from Postprocess.ProcessAnnotated import ListAnno
-from Postprocess.ProcessAnnotated import AdditionalAnalyses
+from Postprocess.ProcessAnnotated import ListAnno, AdditionalAnalyses
 from Postprocess.ProcessConnectives import Connective
+from Postprocess.ProcessCoreference import Coreference, DetailCoref
 import os
 
 
@@ -38,6 +38,21 @@ def makedirs(corpus):
         pass
     try:
         os.mkdir(r"Data/" + corpus + r"/results/")
+    except OSError:
+        exists = True
+        pass
+    try:
+        os.mkdir(r"Data/" + corpus + r"/results/coref/")
+    except OSError:
+        exists = True
+        pass
+    try:
+        os.mkdir(r"Data/" + corpus + r"/results/connectives/")
+    except OSError:
+        exists = True
+        pass
+    try:
+        os.mkdir(r"Data/" + corpus + r"/results/general/")
     except OSError:
         exists = True
         pass
@@ -95,6 +110,14 @@ def connective_analyses(pname):
               "Example: 01.tsv	um zu	APPR+PTKZU	02_Contingency	00_Multiword	22\n")
 
 
+def coreference_analyses(pname):
+    coref_corpus = Coreference(pname)
+    coref_corpus.full_pipeline()
+
+    details = DetailCoref(pname)
+    details.pipe()
+
+
 if __name__ == '__main__':
     try:
         name = sys.argv[1]
@@ -108,6 +131,8 @@ if __name__ == '__main__':
     create_lists(name)
     print("Processing starts...")
     start_analyses(name)
-    print("Counted nouns, tokens and POS +++ New files can be found in Data/{}/results".format(name))
+    print("Counted nouns, tokens and POS +++ New files can be found in Data/{}/results/general".format(name))
     connective_analyses(name)
-    print("Listed connectives +++ New files can be found in Data/{}/results".format(name))
+    print("Listed connectives +++ New files can be found in Data/{}/results/connectives".format(name))
+    coreference_analyses(name)
+    print("Listed coreference +++ New files can be found in Data/{}/results/coref".format(name))

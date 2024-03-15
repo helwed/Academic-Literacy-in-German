@@ -49,7 +49,7 @@ class AdditionalAnalyses(Skeleton):
         """
         Function counts existing nouns in file
         """
-        with open("Data/" + self.name + "/results/nouns.csv", mode="w", encoding="utf-8") as outfile:
+        with open("Data/" + self.name + "/results/general/nouns.csv", mode="w", encoding="utf-8") as outfile:
             print("file\tnoun\tfrequency", file=outfile)
             # for every file int he corpus
             for file in self.corpus:
@@ -74,9 +74,9 @@ class AdditionalAnalyses(Skeleton):
         function counts token per text and per sentence
         """
         # new file to save counting results
-        with open("Data/" + self.name + "/results/sentence_length.csv", mode="w",
+        with open("Data/" + self.name + "/results/general/sentence_length.csv", mode="w",
                   encoding="utf-8") as outfile:
-            with open("Data/" + self.name + "/results/token_sum.csv", mode="w",
+            with open("Data/" + self.name + "/results/general/token_sum.csv", mode="w",
                       encoding="utf-8") as outfile2:
                 print("topic\tfile\tsenid\tlength", file=outfile)
                 print("topic\tfile\tsum", file=outfile2)
@@ -103,7 +103,7 @@ class AdditionalAnalyses(Skeleton):
                 function counts token per text and per sentence
                 """
         # new file to save counting results
-        with open("Data/" + self.name + "/results/" + self.name + "_POS.csv", mode="w",
+        with open("Data/" + self.name + "/results/general/" + self.name + "_POS.csv", mode="w",
                   encoding="utf-8") as outfile:
             print("topic\tfile\ttok\tPOS1", file=outfile)
             # for every file in the corpus

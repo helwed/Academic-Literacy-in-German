@@ -11,8 +11,8 @@ class Connective(Skeleton):
         """
         position = set()
         # open two files to store new data
-        with open("Data/" + self.name + "/results/con_results.csv", mode='w', encoding="utf-8") as outfile:
-            with open("Data/" + self.name + "/results/con_multi_results.csv", mode='w',
+        with open("Data/" + self.name + "/results/connectives/con_results.csv", mode='w', encoding="utf-8") as outfile:
+            with open("Data/" + self.name + "/results/connectives/con_multi_results.csv", mode='w',
                       encoding="utf-8") as multi_outfile:
                 # for every file and line in the file
                 for file in self.corpus:
@@ -39,10 +39,11 @@ class Connective(Skeleton):
         Method reformats the manually adapted files into a readable format
         """
         # Open manually adapted files
-        with open("Data/" + self.name + "/results/con_multi_results_manual.csv", mode="r", encoding="utf-8") as infile:
+        with open("Data/" + self.name + "/results/connectives/con_multi_results_manual.csv", mode="r",
+                  encoding="utf-8") as infile:
             content = infile.readlines()
             # Open new file
-            with open("Data/" + self.name + "/results/con_multi_results_fixed.csv", mode="w",
+            with open("Data/" + self.name + "/results/connectives/con_multi_results_fixed.csv", mode="w",
                       encoding="utf-8") as outfile:
                 # for every line...
                 for line in content:
@@ -63,11 +64,12 @@ class Connective(Skeleton):
         """
         Method merges single connectives and multi-word connectives (and phrases) in one file
         """
-        with open("Data/" + self.name + "/results/con_multi_results_fixed.csv", mode="r", encoding="utf-8") as infile1:
+        with open("Data/" + self.name + "/results/connectives/con_multi_results_fixed.csv", mode="r",
+                  encoding="utf-8") as infile1:
             content1 = infile1.readlines()
-        with open("Data/" + self.name + "/results/con_results.csv", mode="r", encoding="utf-8") as infile2:
+        with open("Data/" + self.name + "/results/connectives/con_results.csv", mode="r", encoding="utf-8") as infile2:
             content2 = infile2.readlines()
-        with open("Data/" + self.name + "/results/con_combined.csv", mode="w", encoding="utf-8") as outfile:
+        with open("Data/" + self.name + "/results/connectives/con_combined.csv", mode="w", encoding="utf-8") as outfile:
             for line in content1:
                 print(line.strip(), file=outfile)
             for line in content2:
@@ -77,9 +79,9 @@ class Connective(Skeleton):
         """
         Method prepares results to be read in R
         """
-        with open("Data/" + self.name + "/results/con_combined.csv", mode="r", encoding="utf-8") as infile:
+        with open("Data/" + self.name + "/results/connectives/con_combined.csv", mode="r", encoding="utf-8") as infile:
             content = infile.readlines()
-        with open("Data/" + self.name + "/results/" + self.name + "_connectives.csv", mode="w",
+        with open("Data/" + self.name + "/results/connectives/" + self.name + "_connectives.csv", mode="w",
                   encoding="utf-8") as outfile:
             print("participant\tfile\ttopic\ttoken\tPOS\tConnective\tIndex\tExtra", file=outfile)
             for line in content:
