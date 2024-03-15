@@ -15,7 +15,7 @@ If you want to add new sentence boundaries:
 2. The program will ask you to add new boundaries to m_sen_boun
 3. Start Boundaries.py anew
 
-#Postprocessing pipeline
+# Postprocessing pipeline
 Steps
 1. Start Postprocess.py to start processing files
 2. The program will ask you to fill in lists of topics and annotators
