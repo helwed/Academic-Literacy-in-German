@@ -52,8 +52,7 @@ class Coreference(Skeleton):
                     rel = self.categories[file]['referenceRelation']
                     type_rel = self.categories[file]['referenceType']
                 except:
-                    print(file)
-                    print(tok)
+                    print("Error", file)
                 # if all three positions not annotated, skip
                 try:
                     if tok[expl] == "_" and tok[ref] == "_" and tok[rel] == "_" and tok[type_rel] == "_":
@@ -62,7 +61,8 @@ class Coreference(Skeleton):
                     else:
                         self.coref[file].append((tok[index], tok[token], tok[expl], tok[ref], tok[rel], tok[type_rel]))
                 except:
-                    print(file, tok, self.categories[file])
+                    pass
+                    #print(file, tok, self.categories[file])
 
     def sort_groups(self):
         """

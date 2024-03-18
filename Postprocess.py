@@ -23,6 +23,11 @@ def unpack_folders(path):
                     with open(path + "/" + folder + "/" + file, mode="r", encoding="utf-8") as infile:
                         with open(path + "_new/" + new, mode="w", encoding="utf-8") as outfile:
                             print(infile.read(), file=outfile)
+                elif file == "INITIAL_CAS.tsv":
+                    new = folder
+                    with open(path + "/" + folder + "/" + file, mode="r", encoding="utf-8") as infile:
+                        with open(path + "_raw/" + new, mode="w", encoding="utf-8") as outfile:
+                            print(infile.read(), file=outfile)
 
 
 def makedirs(corpus):
@@ -33,6 +38,11 @@ def makedirs(corpus):
     exists = False
     try:
         os.mkdir(r"Data/" + corpus + r"/tsv_new/")
+    except OSError:
+        exists = True
+        pass
+    try:
+        os.mkdir(r"Data/" + corpus + r"/tsv_raw/")
     except OSError:
         exists = True
         pass
@@ -80,7 +90,7 @@ def start_analyses(pname):
     """
     # read file and preanalyse
     ana = AdditionalAnalyses(pname)
-    ana.read_files("tsv_new")
+    ana.read_files("tsv_raw")
     ana.analyse_preamble()
     ana.analyse_topics()
     # Counting!

@@ -75,7 +75,7 @@ class Skeleton:
         Function reads file with topics
         """
         # Read topic file
-        with open("Data/Additional_Data/topic_" + self.name + ".txt") as infile:
+        with open("Data/Additional_Data/topic_" + self.name + "_filled.txt") as infile:
             content = infile.readlines()
         # save topics in dictionary
         for line in content[1:]:

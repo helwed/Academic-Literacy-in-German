@@ -110,4 +110,7 @@ class AdditionalAnalyses(Skeleton):
             for file in self.corpus:
                 topic = self.topics[file]
                 for tok in self.corpus[file]:
-                    print(topic + "\t" + file + "\t" + tok[2] + "\t" + tok[3], file=outfile)
+                    if tok[2] == "\"":
+                        print(topic + "\t" + file + "\t\\" + tok[2] + "\t" + tok[3], file=outfile)
+                    else:
+                        print(topic + "\t" + file + "\t" + tok[2] + "\t" + tok[3], file=outfile)
