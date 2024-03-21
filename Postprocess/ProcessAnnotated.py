@@ -40,6 +40,26 @@ class ListAnno:
                 if not text.startswith("."):
                     print(text, "Topic", sep="\t", file=outfile)
 
+    def list_languages(self):
+        """
+        Method lists all languages in a text file
+        """
+        with open("Data/Additional_Data/FirstLanguages_" + self.name + ".csv", mode="w", encoding="utf-8") as outfile:
+            # print row headers
+            print("textfile", "L1_1", "L1_2", "L1_3", sep="\t", file=outfile)
+            # print default language for every file
+            for text in sorted(self.texts):
+                if not text.startswith("."):
+                    print(text, "_", "_", "_", sep="\t", file=outfile)
+
+        with open("Data/Additional_Data/SecondLanguages_" + self.name + ".csv", mode="w", encoding="utf-8") as outfile:
+            # print row headers
+            print("textfile", "L2_1", "L2_2", "L2_3", sep="\t", file=outfile)
+            # print default language for every file
+            for text in sorted(self.texts):
+                if not text.startswith("."):
+                    print(text, "_", "_", "_", sep="\t", file=outfile)
+
 
 class AdditionalAnalyses(Skeleton):
     def __init__(self, pcorpus):
@@ -78,10 +98,12 @@ class AdditionalAnalyses(Skeleton):
                   encoding="utf-8") as outfile:
             with open("Data/" + self.name + "/results/general/token_sum.csv", mode="w",
                       encoding="utf-8") as outfile2:
-                print("topic\tfile\tsenid\tlength", file=outfile)
-                print("topic\tfile\tsum", file=outfile2)
+                print("L1_1\tL1_2\tL1_3\tL2_1\tL2_2\tL2_3\ttopic\tfile\tsenid\tlength", file=outfile)
+                print("L1_1\tL1_2\tL1_3\tL2_1\tL2_2\tL2_3\ttopic\tfile\tsum", file=outfile2)
                 # for every file in the corpus
                 for file in self.corpus:
+                    firstl = self.firsts[file]
+                    secondl = self.seconds[file]
                     topic = self.topics[file]
                     # save length of every sentence in the dictionary
                     freq = {}
@@ -95,8 +117,11 @@ class AdditionalAnalyses(Skeleton):
                         sums += 1
                     # print results
                     for sen in freq:
-                        print(topic + "\t" + str(file) + "\t" + "s" + str(sen) + "\t" + str(freq[sen]), file=outfile)
-                    print(topic + "\t" + file.replace(".tsv", "") + "\t" + str(sums), file=outfile2)
+                        print("\t".join(firstl) + "\t" + "\t".join(secondl) + "\t" + topic + "\t" + str(
+                            file) + "\t" + "s" + str(sen) + "\t" + str(freq[sen]), file=outfile)
+                    print("\t".join(firstl) + "\t" + "\t".join(secondl) + "\t" + topic + "\t" + file.replace(".tsv",
+                                                                                                             "") + "\t" + str(
+                        sums), file=outfile2)
 
     def print_pos(self):
         """
@@ -105,12 +130,33 @@ class AdditionalAnalyses(Skeleton):
         # new file to save counting results
         with open("Data/" + self.name + "/results/general/" + self.name + "_POS.csv", mode="w",
                   encoding="utf-8") as outfile:
-            print("topic\tfile\ttok\tPOS1", file=outfile)
+            print("L1_1\tL1_2\tL1_3\tL2_1\tL2_2\tL2_3\ttopic\tfile\ttok\tPOS1", file=outfile)
             # for every file in the corpus
             for file in self.corpus:
+                firstl = self.firsts[file]
+                secondl = self.seconds[file]
                 topic = self.topics[file]
                 for tok in self.corpus[file]:
                     if tok[2] == "\"":
-                        print(topic + "\t" + file + "\t\\" + tok[2] + "\t" + tok[3], file=outfile)
+                        print("\t".join(firstl) + "\t" + "\t".join(secondl) + "\t" + topic + "\t" + file + "\t\\" + tok[
+                            2] + "\t" + tok[3], file=outfile)
                     else:
-                        print(topic + "\t" + file + "\t" + tok[2] + "\t" + tok[3], file=outfile)
+                        print("\t".join(firstl) + "\t" + "\t".join(secondl) + "\t" + topic + "\t" + file + "\t" + tok[
+                            2] + "\t" + tok[3], file=outfile)
+
+    def print_corpus(self):
+        with open("Data/" + self.name + "/results/general/" + self.name + "_texts.csv", mode="w",
+                  encoding="utf-8") as outfile:
+            print("L1_1\tL1_2\tL1_3\tL2_1\tL2_2\tL2_3\ttopic\tfile\ttext", file=outfile)
+            for file in self.corpus:
+                firstl = self.firsts[file]
+                secondl = self.seconds[file]
+                topic = self.topics[file]
+                print("\t".join(firstl) + "\t" + "\t".join(secondl) + "\t" + topic, file, sep="\t", end="\t",
+                      file=outfile)
+                for tok in self.corpus[file]:
+                    if tok[2] == "\"":
+                        print("\\" + tok[2], end=" ", file=outfile)
+                    else:
+                        print(tok[2], end=" ", file=outfile)
+                print("", end="\n", file=outfile)

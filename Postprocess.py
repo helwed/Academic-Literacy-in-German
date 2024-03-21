@@ -82,6 +82,7 @@ def create_lists(pname):
     l = ListAnno(list_texts, ["Annotator"], pname)
     l.list()
     l.list_topics()
+    l.list_languages()
 
 
 def start_analyses(pname):
@@ -90,13 +91,15 @@ def start_analyses(pname):
     """
     # read file and preanalyse
     ana = AdditionalAnalyses(pname)
-    ana.read_files("tsv_raw")
+    ana.read_files("tsv_raw")  # ToDo: Add tsv_new
     ana.analyse_preamble()
     ana.analyse_topics()
+    ana.analyse_languages()
     # Counting!
     ana.count_nouns()
     ana.count_token()
     ana.print_pos()
+    ana.print_corpus()
 
 
 def connective_analyses(pname):
@@ -136,7 +139,7 @@ if __name__ == '__main__':
     print("\nWelcome! The program starts to unpack folder {} now.".format(name))
     makedirs(name)
     unpack_folders("Data/" + name + "/tsv")
-    print("Creating empty lists to fill with annotators and topics +++ "
+    print("Creating empty lists to fill with annotators, topics and languages+++ "
           "Please fill if you want it added to the csv-files for R\n")
     create_lists(name)
     print("Processing starts...")

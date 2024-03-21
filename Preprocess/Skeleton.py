@@ -13,6 +13,8 @@ class Skeleton:
         self.raw = {}
         self.tok = 0  # amount of token
         self.topics = {}  # contains the files and their topics
+        self.firsts = {}
+        self.seconds = {}
 
     def pipe(self):
         """
@@ -81,4 +83,25 @@ class Skeleton:
         for line in content[1:]:
             zoomin = line.strip().split("\t")
             self.topics[zoomin[0]] = zoomin[1]
+
+    def analyse_languages(self):
+        """
+        Function reads file with topics
+        """
+        # FIRST LANGUAGES
+        # Read topic file
+        with open("Data/Additional_Data/FirstLanguages_" + self.name + "_filled.csv") as infile:
+            content = infile.readlines()
+        # save first languages in dictionary
+        for line in content[1:]:
+            zoomin = line.strip().split("\t")
+            self.firsts[zoomin[0]] = zoomin[1:]
+        # SECOND LANGUAGES
+        with open("Data/Additional_Data/SecondLanguages_" + self.name + "_filled.csv") as infile2:
+            content = infile2.readlines()
+        # save second languages in dictionary
+        for line in content[1:]:
+            zoomin2 = line.strip().split("\t")
+            self.seconds[zoomin2[0]] = zoomin2[1:]
+
 
