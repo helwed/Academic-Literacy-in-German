@@ -62,7 +62,7 @@ class Coreference(Skeleton):
                         self.coref[file].append((tok[index], tok[token], tok[expl], tok[ref], tok[rel], tok[type_rel]))
                 except:
                     pass
-                    #print(file, tok, self.categories[file])
+                    # print(file, tok, self.categories[file])
 
     def sort_groups(self):
         """
