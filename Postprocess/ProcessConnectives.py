@@ -58,7 +58,10 @@ class Connective(Skeleton):
                         short += str(new[el])
                         el = el - 1
                     # print in new file
-                    print("\t".join(new[0:4] + [new[5]] + [short]), file=outfile)
+                    if len(new) > 5:
+                        print("\t".join(new[0:4] + [new[5]] + [short]), file=outfile)
+                    else:
+                        print("\t".join(new + ["S"] + [short]), file=outfile)
 
     def write_combi(self):
         """
@@ -83,10 +86,12 @@ class Connective(Skeleton):
             content = infile.readlines()
         with open("Data/" + self.name + "/results/connectives/" + self.name + "_connectives.csv", mode="w",
                   encoding="utf-8") as outfile:
-            print("participant\tfile\ttopic\ttoken\tPOS\tConnective\tIndex\tExtra", file=outfile)
+            print("participant\tL1_1\tL1_2\tL1_3\tL2_1\tL2_2\tL2_3\tfile\ttotal_token\ttopic\ttoken\tPOS\tConnective\tIndex\tExtra", file=outfile)
             for line in content:
                 line_content = line.strip().split("\t")
                 file = line_content[0]
                 topic = self.topics[file]
-                print(file.replace(".tsv", "") + "\t" + line_content[0] + "\t" + topic + "\t" + "\t".join(
+                L1 = "\t".join(self.firsts[line_content[0]])
+                L2 = "\t".join(self.seconds[line_content[0]])
+                print(file.replace(".tsv", "").replace("_T1", "").replace("_T2", "").replace("_T3", "") + "\t" + L1 + "\t" + L2 + "\t" + line_content[0] + "\t" + topic + "\t" + "\t".join(
                     line_content[1:]), file=outfile)

@@ -21,13 +21,18 @@ def unpack_folders(path):
                     # new = folder.replace(".tsv","") + "_" + file
                     new = folder
                     with open(path + "/" + folder + "/" + file, mode="r", encoding="utf-8") as infile:
-                        with open(path + "_new/" + new, mode="w", encoding="utf-8") as outfile:
-                            print(infile.read(), file=outfile)
-                elif file == "INITIAL_CAS.tsv":
+                        with open(path + "_new/" + new + "__" + file, mode="w", encoding="utf-8") as outfile:
+                            print(infile.read().strip(), file=outfile)
+                elif file == "INITIAL_CAS.tsv" and len(os.listdir(path + "/" + folder)) == 1:
+                    new = folder
+                    with open(path + "/" + folder + "/" + file, mode="r", encoding="utf-8") as infile:
+                        with open(path + "_new/" + new + "__CAS.tsv", mode="w", encoding="utf-8") as outfile:
+                            print(infile.read().strip(), file=outfile)
+                if file == "INITIAL_CAS.tsv":
                     new = folder
                     with open(path + "/" + folder + "/" + file, mode="r", encoding="utf-8") as infile:
                         with open(path + "_raw/" + new, mode="w", encoding="utf-8") as outfile:
-                            print(infile.read(), file=outfile)
+                            print(infile.read().strip(), file=outfile)
 
 
 def makedirs(corpus):
@@ -95,6 +100,9 @@ def start_analyses(pname):
     ana.analyse_preamble()
     ana.analyse_topics()
     ana.analyse_languages()
+    ana.analyse_annotators()
+    ana.remove_files("tsv_new")
+    ana.read_files("tsv_new")
     # Counting!
     ana.count_nouns()
     ana.count_token()
@@ -109,7 +117,9 @@ def connective_analyses(pname):
     """
     con = Connective(pname)
     con.analyse_topics()
-    con.read_files("tsv_new")
+    con.analyse_annotators()
+    con.analyse_languages()
+    con.read_files("tsv_new")  # ToDo: Add tsv_new
     con.filter_connectives()
     try:
         con.reformat_manual()
@@ -125,11 +135,12 @@ def connective_analyses(pname):
 
 def coreference_analyses(pname):
     coref_corpus = Coreference(pname)
+    coref_corpus.analyse_languages()
+    coref_corpus.analyse_annotators()
     coref_corpus.full_pipeline()
 
     details = DetailCoref(pname)
     details.pipe()
-
 
 if __name__ == '__main__':
     try:

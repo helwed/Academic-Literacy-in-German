@@ -51,7 +51,7 @@ class Coreference(Skeleton):
                     ref = self.categories[file]['Referent']
                     rel = self.categories[file]['referenceRelation']
                     type_rel = self.categories[file]['referenceType']
-                except:
+                except KeyError:
                     print("Error", file)
                 # if all three positions not annotated, skip
                 try:
@@ -213,7 +213,7 @@ class Coreference(Skeleton):
         Function allows to engange complete pipeline
         """
         # read file and preanalyse
-        self.read_files("tsv_new")
+        self.read_files("tsv_new")  # ToDo: Add tsv_new
         self.analyse_preamble()
         # analyse the distances and filter in chains
         self.count_distance_length()

@@ -13,6 +13,8 @@ class ListAnno:
         self.annotators = annotators
         self.name = name
 
+
+
     def list(self):
         """
         Method lists all annotators in a text file
@@ -160,3 +162,5 @@ class AdditionalAnalyses(Skeleton):
                     else:
                         print(tok[2], end=" ", file=outfile)
                 print("", end="\n", file=outfile)
+
+

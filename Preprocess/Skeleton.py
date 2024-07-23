@@ -15,6 +15,7 @@ class Skeleton:
         self.topics = {}  # contains the files and their topics
         self.firsts = {}
         self.seconds = {}
+        self.annotators = {}
 
     def pipe(self):
         """
@@ -29,18 +30,19 @@ class Skeleton:
         Function reads files and preamble
         """
         # for every file in the corpus file
-        for file in os.listdir("Data/" + self.name + "/" + folder):
+        for fname in os.listdir("Data/" + self.name + "/" + folder):
             # open file and save text and preamble in lists
-            with open("Data/" + self.name + "/" + folder + "/" + file, mode="r", encoding="utf-8") as inc_file:
-                self.preamble[file], self.corpus[file], self.raw[file] = [], [], []
+            with open("Data/" + self.name + "/" + folder + "/" + fname, mode="r", encoding="utf-8") as inc_file:
+                self.preamble[fname], self.corpus[fname], self.raw[fname] = [], [], []
                 # for every line: if line long enough, save text amd preamble
                 for line in inc_file.readlines():
                     if len(line) > 1:
                         if not line.startswith("#"):
-                            self.corpus[file].append(line.strip().split("\t"))
+                            self.corpus[fname].append(line.strip().split("\t"))
                         elif line.startswith("#T_"):
-                            self.preamble[file].append(line.strip())
-                        self.raw[file].append(line.strip())
+                            self.preamble[fname].append(line.strip())
+                        self.raw[fname].append(line.strip())
+
 
     def analyse_preamble(self):
         """
@@ -84,6 +86,25 @@ class Skeleton:
             zoomin = line.strip().split("\t")
             self.topics[zoomin[0]] = zoomin[1]
 
+    def analyse_annotators(self):
+        """
+                Method reads all annotators in a text file
+                """
+        # Open text file to save annotators
+        with open("Data/Additional_Data/annotator_overview_" + self.name + "_filled.txt", mode="r",
+                  encoding="utf-8") as infile:
+            files = infile.readlines()
+            for row in files:
+                self.annotators[row.split("\t")[0].strip()] = row.split("\t")[1].strip()
+    def remove_files(self, folder):
+
+        for file in os.listdir("Data/" + self.name + "/" + folder):
+            fname, anno = file.split("__")[0], file.split("__")[1]
+            if self.annotators[fname] == anno:
+                os.rename("Data/" + self.name + "/" + folder + "/" + file, "Data/" + self.name + "/" + folder + "/" + fname)
+            else:
+                os.remove("Data/" + self.name + "/" + folder + "/" + file)
+
     def analyse_languages(self):
         """
         Function reads file with topics
@@ -103,5 +124,6 @@ class Skeleton:
         for line in content[1:]:
             zoomin2 = line.strip().split("\t")
             self.seconds[zoomin2[0]] = zoomin2[1:]
+
 
 
