@@ -4,6 +4,9 @@ from Postprocess.ProcessConnectives import Connective
 from Postprocess.ProcessCoreference import Coreference, DetailCoref
 import os
 
+#ToDo: Write algorithm to adapt names of files and inside files and write one that creates a conversion file as well - I can use the excel file for that
+#ToDo: Write algorithm that puts the additional data in folders, so that i will not have such a mess there
+#ToDo: Repair coreference for L2_f
 
 def unpack_folders(path):
     """
