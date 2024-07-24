@@ -86,7 +86,7 @@ class Connective(Skeleton):
             content = infile.readlines()
         with open("Data/" + self.name + "/results/connectives/" + self.name + "_connectives.csv", mode="w",
                   encoding="utf-8") as outfile:
-            print("participant\tL1_1\tL1_2\tL1_3\tL2_1\tL2_2\tL2_3\tfile\ttotal_token\ttopic\ttoken\tPOS\tConnective\tIndex\tExtra", file=outfile)
+            print("participant\tL1_1\tL1_2\tL1_3\tL2_1\tL2_2\tL2_3\tfile\ttopic\ttoken\tPOS\tConnective\tIndex\tExtra", file=outfile)
             for line in content:
                 line_content = line.strip().split("\t")
                 file = line_content[0]
