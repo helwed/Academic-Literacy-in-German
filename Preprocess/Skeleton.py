@@ -79,7 +79,7 @@ class Skeleton:
         Function reads file with topics
         """
         # Read topic file
-        with open("Data/Additional_Data/topic_" + self.name + "_filled.txt") as infile:
+        with open("Data/Additional_Data/" + self.name + "/topic_" + self.name + "_filled.txt") as infile:
             content = infile.readlines()
         # save topics in dictionary
         for line in content[1:]:
@@ -91,7 +91,7 @@ class Skeleton:
                 Method reads all annotators in a text file
                 """
         # Open text file to save annotators
-        with open("Data/Additional_Data/annotator_overview_" + self.name + "_filled.txt", mode="r",
+        with open("Data/Additional_Data/" + self.name + "/annotator_overview_" + self.name + "_filled.txt", mode="r",
                   encoding="utf-8") as infile:
             files = infile.readlines()
             for row in files:
@@ -111,14 +111,14 @@ class Skeleton:
         """
         # FIRST LANGUAGES
         # Read topic file
-        with open("Data/Additional_Data/FirstLanguages_" + self.name + "_filled.csv") as infile:
+        with open("Data/Additional_Data/" + self.name + "/FirstLanguages_" + self.name + "_filled.csv") as infile:
             content = infile.readlines()
         # save first languages in dictionary
         for line in content[1:]:
             zoomin = line.strip().split("\t")
             self.firsts[zoomin[0]] = zoomin[1:]
         # SECOND LANGUAGES
-        with open("Data/Additional_Data/SecondLanguages_" + self.name + "_filled.csv") as infile2:
+        with open("Data/Additional_Data/" + self.name + "/SecondLanguages_" + self.name + "_filled.csv") as infile2:
             content = infile2.readlines()
         # save second languages in dictionary
         for line in content[1:]:

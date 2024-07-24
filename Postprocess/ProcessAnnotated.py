@@ -20,7 +20,7 @@ class ListAnno:
         Method lists all annotators in a text file
         """
         # Open text file to save annotators
-        with open("Data/Additional_Data/annotator_overview_" + self.name + ".txt", mode="w",
+        with open("Data/Additional_Data/" + self.name + "/annotator_overview_" + self.name + ".txt", mode="w",
                   encoding="utf-8") as outfile:
             # print row headers
             print("textfile", "Annotated_by", sep="\t", file=outfile)
@@ -34,7 +34,7 @@ class ListAnno:
         Method lists all topics in a text file
         """
         # Open text file to save topics
-        with open("Data/Additional_Data/topic_" + self.name + ".txt", mode="w", encoding="utf-8") as outfile:
+        with open("Data/Additional_Data/" + self.name + "/topic_" + self.name + ".txt", mode="w", encoding="utf-8") as outfile:
             # print row headers
             print("textfile", "topic", sep="\t", file=outfile)
             # print default topic for every file
@@ -46,7 +46,7 @@ class ListAnno:
         """
         Method lists all languages in a text file
         """
-        with open("Data/Additional_Data/FirstLanguages_" + self.name + ".csv", mode="w", encoding="utf-8") as outfile:
+        with open("Data/Additional_Data/" + self.name + "/FirstLanguages_" + self.name + ".csv", mode="w", encoding="utf-8") as outfile:
             # print row headers
             print("textfile", "L1_1", "L1_2", "L1_3", sep="\t", file=outfile)
             # print default language for every file
@@ -54,7 +54,7 @@ class ListAnno:
                 if not text.startswith("."):
                     print(text, "_", "_", "_", sep="\t", file=outfile)
 
-        with open("Data/Additional_Data/SecondLanguages_" + self.name + ".csv", mode="w", encoding="utf-8") as outfile:
+        with open("Data/Additional_Data/" + self.name + "/SecondLanguages_" + self.name + ".csv", mode="w", encoding="utf-8") as outfile:
             # print row headers
             print("textfile", "L2_1", "L2_2", "L2_3", sep="\t", file=outfile)
             # print default language for every file

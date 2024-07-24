@@ -36,6 +36,11 @@ def makedirs(corpus):
     except OSError:
         exists = True
         pass
+    try:
+        os.mkdir(r"Additional_Data/" + corpus + r"/")
+    except OSError:
+        exists = True
+        pass
 
     return exists
 
