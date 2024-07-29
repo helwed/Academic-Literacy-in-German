@@ -2,6 +2,8 @@ import sys
 from Postprocess.ProcessAnnotated import ListAnno, AdditionalAnalyses
 from Postprocess.ProcessConnectives import Connective
 from Postprocess.ProcessCoreference import Coreference, DetailCoref
+from Postprocess.ProcessDeviant import Deviant
+
 import os
 
 
@@ -145,6 +147,15 @@ def coreference_analyses(pname):
     details = DetailCoref(pname)
     details.pipe()
 
+def deviant_analyses(pname):
+    dev = Deviant(name)
+    dev.analyse_topics()
+    dev.analyse_annotators()
+    dev.analyse_languages()
+    dev.read_files("tsv_new")
+    dev.analyse_deviant()
+    dev.print_deviant()
+
 
 if __name__ == '__main__':
     try:
@@ -164,3 +175,5 @@ if __name__ == '__main__':
     print("Listed connectives +++ New files can be found in Data/{}/results/connectives".format(name))
     coreference_analyses(name)
     print("Listed coreference +++ New files can be found in Data/{}/results/coref".format(name))
+    deviant_analyses(name)
+    print("Listed deviant connectives +++ New files can be found in Data/{}/results/con".format(name))

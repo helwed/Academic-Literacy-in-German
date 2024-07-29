@@ -52,11 +52,35 @@ def combine_files(pfiles):
                 for line in content1[1:]:
                     print(file.replace(".csv", "") + "\t" + line, end="", file=outfile)
 
+def change_factors(pfile):
+    """
+    Changes the names of some variables in the files (e.g. everything with a + to either COMPLEX or PHRASE)
+    :param pfile: name of file
+    """
+    with open("Data/Convert/combined.csv", 'r', encoding='utf8') as infile:
+        with open("Data/Convert/combined_new.csv", 'w', encoding='utf8') as outfile:
+            content = infile.readlines()
+            for line in content:
+                new_line = []
+                line = line.strip().split("\t")
+                for el in line:
+                    new_el = el
+                    if el == "_":
+                        new_el = "NA"
+                    if "+" in el and "M" in line[-1]:
+                        new_el = "COMPLEX"
+                    elif "+" in el and "P" in line[-1]:
+                        new_el = "PHRASE"
+                    new_line.append(new_el)
+                print("\t".join(new_line), file= outfile)
+
+
 
 if __name__ == '__main__':
     """
     Main function
     """
+
     try:
         ans = sys.argv[1]
     except IndexError:
@@ -78,5 +102,11 @@ if __name__ == '__main__':
         except IndexError:
             files = input("Which three files do you want to combine? (separated by comma)")
         files = files.split(",")
-        # files = ["B.csv", "L2.csv", "L1.csv"]
+        #files = ["B.csv", "L2.csv", "L1.csv"]
+        #files = ["token_sum_B.csv", "token_sum_L1.csv", "token_sum_L2.csv"]
         combine_files(files)
+        try:
+            files = sys.argv[1]
+        except IndexError:
+            files = input("Which file would you like to format?")
+        change_factors("combined.csv")

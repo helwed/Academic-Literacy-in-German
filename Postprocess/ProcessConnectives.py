@@ -70,7 +70,7 @@ class Connective(Skeleton):
         with open("Data/" + self.name + "/results/connectives/con_multi_results_fixed.csv", mode="r",
                   encoding="utf-8") as infile1:
             content1 = infile1.readlines()
-        with open("Data/" + self.name + "/results/connectives/con_results.csv", mode="r", encoding="utf-8") as infile2:
+        with open("Data/" + self.name + "/results/connectives/con_results_manual.csv", mode="r", encoding="utf-8") as infile2:
             content2 = infile2.readlines()
         with open("Data/" + self.name + "/results/connectives/con_combined.csv", mode="w", encoding="utf-8") as outfile:
             for line in content1:
