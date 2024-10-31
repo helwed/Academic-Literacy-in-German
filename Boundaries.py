@@ -32,7 +32,7 @@ if __name__ == '__main__':
     test = os.path.isdir(r"Data/" + name + r"/tsv/")
     if test:
         # reads anno_tsv folder and combines annotations
-        pre = Skeleton(name + "/tsv")
+        pre = Skeleton(name)
         pre.pipe()
         print("I will start making new directories to allow for changes (flex_boun, tsv_new_boun, csv)")
         exists = make_directories(name)
