@@ -32,16 +32,17 @@ class Skeleton:
         # for every file in the corpus file
         for fname in os.listdir("Data/" + self.name + "/" + folder):
             # open file and save text and preamble in lists
-            with open("Data/" + self.name + "/" + folder + "/" + fname, mode="r", encoding="utf-8") as inc_file:
-                self.preamble[fname], self.corpus[fname], self.raw[fname] = [], [], []
-                # for every line: if line long enough, save text amd preamble
-                for line in inc_file.readlines():
-                    if len(line) > 1:
-                        if not line.startswith("#"):
-                            self.corpus[fname].append(line.strip().split("\t"))
-                        elif line.startswith("#T_"):
-                            self.preamble[fname].append(line.strip())
-                        self.raw[fname].append(line.strip())
+            if not fname.startswith("."):
+                with open("Data/" + self.name + "/" + folder + "/" + fname, mode="r", encoding="utf-8") as inc_file:
+                    self.preamble[fname], self.corpus[fname], self.raw[fname] = [], [], []
+                    # for every line: if line long enough, save text amd preamble
+                    for line in inc_file.readlines():
+                        if len(line) > 1:
+                            if not line.startswith("#"):
+                                self.corpus[fname].append(line.strip().split("\t"))
+                            elif line.startswith("#T_"):
+                                self.preamble[fname].append(line.strip())
+                            self.raw[fname].append(line.strip())
 
 
     def analyse_preamble(self):
@@ -99,11 +100,14 @@ class Skeleton:
     def remove_files(self, folder):
 
         for file in os.listdir("Data/" + self.name + "/" + folder):
-            fname, anno = file.split("__")[0], file.split("__")[1]
-            if self.annotators[fname] == anno:
-                os.rename("Data/" + self.name + "/" + folder + "/" + file, "Data/" + self.name + "/" + folder + "/" + fname)
-            else:
-                os.remove("Data/" + self.name + "/" + folder + "/" + file)
+            try:
+                fname, anno = file.split("__")[0], file.split("__")[1]
+                if self.annotators[fname] == anno:
+                    os.rename("Data/" + self.name + "/" + folder + "/" + file, "Data/" + self.name + "/" + folder + "/" + fname)
+                else:
+                    os.remove("Data/" + self.name + "/" + folder + "/" + file)
+            except IndexError:
+                print("Files have been processed already.")
 
     def analyse_languages(self):
         """
