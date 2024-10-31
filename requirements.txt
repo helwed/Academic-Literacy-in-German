@@ -13,7 +13,6 @@ colorama=0.4.6=py39hecd8cb5_0
 confection=0.1.4=py39h20db666_0
 cymem=2.0.6=py39he9d5cce_0
 cython-blis=0.7.9=py39hacda100_0
-de-core-news-lg=3.7.0=pypi_0
 idna=3.4=py39hecd8cb5_0
 intel-openmp=2023.1.0=ha357a0b_43548
 jinja2=3.1.3=py39hecd8cb5_0
@@ -29,7 +28,6 @@ mkl_fft=1.3.8=py39h6c40b1e_0
 mkl_random=1.2.4=py39ha357a0b_0
 murmurhash=1.0.7=py39he9d5cce_0
 ncurses=6.4=hcec6c5f_0
-nl-core-news-lg=3.7.0=pypi_0
 nodejs=6.13.1=0
 numpy=1.26.4=py39h827a554_0
 numpy-base=1.26.4=py39ha186be2_0

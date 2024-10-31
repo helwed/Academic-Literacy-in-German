@@ -4,6 +4,12 @@ This project contains the two pipelines:
 1. Pipeline to pre-annotate txt-files to import them into Inception and annotate them with the Beldeko and GerSumCo annotation guidelines.
 2. Pipeline to receive Inception file and clean in it, so that it is ready to be analysed via R
 
+# Installation
+Steps:
+1. Create a new virtual environment in conda using requirements.txt in the ALiG folder (Terminal: conda create --name NAME --file requirements.txt)
+2. Activate the new environment (Terminal: conda activate NAME)
+3. Install the spacy libraries (Terminal: python -m spacy download de_core_news_lg)
+
 # Preprocessing pipeline
 Steps:
 1. Start Preprocess.py to start analysing files
