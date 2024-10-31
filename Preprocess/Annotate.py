@@ -79,10 +79,13 @@ class Annotation:
                         if token.text.strip() != "":
                             if token.text.strip() == self.corpus[text]["target_file"][i][2].strip():
                                 # save all necessary spacy annotation
+                                token_tag = token.tag_
+                                if "|" in token_tag:
+                                    token_tag = token_tag.split("|")[0]
                                 annotation = [str(self.corpus[text]["target_file"][i][0])] + [str(s) + "-" + str(t)] + [
                                     str(chr_id) + "-" + str(chr_id + len(self.corpus[text]["target_file"][i][1]))] + \
                                              [self.corpus[text]["target_file"][i][1]] + [
-                                                 self.corpus[text]["target_file"][i][2]] + [token.tag_, token.pos_]
+                                                 self.corpus[text]["target_file"][i][2]] + [token_tag, token.pos_]
                                 chr_id += len(self.corpus[text]["target_file"][i][1]) + 1
                                 # add the lemma
                                 if token.lemma_ == "--":

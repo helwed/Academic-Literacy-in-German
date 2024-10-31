@@ -24,7 +24,6 @@ def makedirs(corpus):
     try:
         os.mkdir(r"Data/" + corpus + r"/orig/")
     except OSError:
-        exists = True
         pass
     try:
         os.mkdir(r"Data/" + corpus + r"/orig+orig/")
@@ -34,12 +33,10 @@ def makedirs(corpus):
     try:
         os.mkdir(r"Data/" + corpus + r"/tsv/")
     except OSError:
-        exists = True
         pass
     try:
         os.mkdir(r"Additional_Data/" + corpus + r"/")
     except OSError:
-        exists = True
         pass
 
     return exists

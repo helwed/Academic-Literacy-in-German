@@ -73,7 +73,7 @@ class AdditionalAnalyses(Skeleton):
         """
         with open("Data/" + self.name + "/results/general/nouns.csv", mode="w", encoding="utf-8") as outfile:
             print("file\tnoun\tfrequency", file=outfile)
-            # for every file int he corpus
+            # for every file in the corpus
             for file in self.corpus:
                 # dictionary to count nouns
                 countdict = {}
