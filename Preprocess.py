@@ -11,8 +11,7 @@ import sys
 import Preprocess.Annotate as Annotate
 import Preprocess.Parse as Parse
 
-# Prepare language model
-nlp = spacy.load('de_core_news_lg')
+
 
 
 def makedirs(corpus):
@@ -47,6 +46,22 @@ if __name__ == '__main__':
         name = sys.argv[1]
     except IndexError:
         name = input("What is the name of the corpus?")
+    try:
+        lang = sys.argv[2]
+    except IndexError:
+        lang = input("Which language needs to be processed (de, fr or nl)?")
+    if lang == "de":
+        # Prepare language model de
+        nlp = spacy.load('de_core_news_sm')
+    elif lang == "fr":
+        # Prepare language model fr
+        nlp = spacy.load('fr_core_news_sm')
+    elif lang == "nl":
+        # Prepare language model nl
+        nlp = spacy.load('nl_core_news_sm')
+    else:
+        print("I cannot find a language with the name" + lang)
+
     test = os.path.isdir(r"Data/" + name + r"/raw/")
     if test:
         print("Welcome! The program starts to process folder {} now.".format(name))
