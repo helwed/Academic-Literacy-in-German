@@ -93,8 +93,9 @@ class Annotation:
                                 else:
                                     annotation.append(token.lemma_)
                                 # Add the connective
-                                connective = self.check_connectives(token.text.lower())
-                                annotation.append(connective)
+                                if self.dimlex != None:
+                                    connective = self.check_connectives(token.text.lower())
+                                    annotation.append(connective)
                                 # append the annotated token to the annotated corpus
                                 self.corpus[text]["annotated"].append(annotation)
                                 self.sentences[text][s]["annotation"].append(annotation)
@@ -119,7 +120,10 @@ class Annotation:
                 print("#T_SP=de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS|PosValue|coarseValue",
                       file=outfile)
                 print("#T_SP=de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Lemma|value", file=outfile)
-                print("#T_SP=webanno.custom.Connectives|Con", file=outfile, end="\n\n")
+                if self.dimlex != None:
+                    print("#T_SP=webanno.custom.Connectives|Con", file=outfile, end="\n\n")
+                else:
+                    print("\n\n", file=outfile)
                 for sent in self.sentences[file]:
                     print("", file=outfile)
                     # print sentence as texts and annotated words in file

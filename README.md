@@ -9,7 +9,7 @@ Steps:
 1. Create a new virtual environment in conda using requirements.txt in the ALiG folder (Terminal: conda create --name NAME --file requirements.txt)
 2. Activate the new environment (Terminal: conda activate NAME)
 3. Install the spacy libraries
-   1. Terminal: python -m spacy download de_core_news_lg
+   1. Terminal: python -m spacy download de_core_news_sm
    2. Terminal: python -m spacy download fr_core_news_sm
    3. Terminal: python -m spacy download nl_core_news_sm
 4. Create a folder with the name of the corpus

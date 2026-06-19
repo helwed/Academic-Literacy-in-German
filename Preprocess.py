@@ -49,7 +49,7 @@ if __name__ == '__main__':
     try:
         lang = sys.argv[2]
     except IndexError:
-        lang = input("Which language needs to be processed (de, fr or nl)?")
+        lang = input("Which language needs to be processed (de, fr, nl or en)?")
     if lang == "de":
         # Prepare language model de
         nlp = spacy.load('de_core_news_sm')
@@ -59,8 +59,15 @@ if __name__ == '__main__':
     elif lang == "nl":
         # Prepare language model nl
         nlp = spacy.load('nl_core_news_sm')
+    elif lang == "en":
+        # Prepare language model nl
+        nlp = spacy.load('en_core_web_sm')
     else:
         print("I cannot find a language with the name" + lang)
+    try:
+        opt_con = sys.argv[3]
+    except IndexError:
+        opt_con = input("Do you wish to annotate connectives? (yes/no)")
 
     test = os.path.isdir(r"Data/" + name + r"/raw/")
     if test:
@@ -79,8 +86,11 @@ if __name__ == '__main__':
         if norm:
             print("The corpus is normalised. I will start parsing the data now...")
             p.parse_target()
-            dimlex = Parse.ReadDimlex()
-            a = Annotate.Annotation(nlp, name, p.get_corpus(), dimlex.get_dict())
+            if opt_con == "yes":
+                dimlex = Parse.ReadDimlex()
+                a = Annotate.Annotation(nlp, name, p.get_corpus(), dimlex.get_dict())
+            else:
+                a = Annotate.Annotation(nlp, name, p.get_corpus(), None)
             a.annotate_simple()
             a.print_tsv()
             print(
