@@ -1,3 +1,7 @@
 __pycache__/
 .DS_Store
 .Rproj.user
+bin/
+lib/
+Data/
+pyvenv.cfg
