@@ -5,3 +5,4 @@ bin/
 lib/
 Data/
 pyvenv.cfg
+.idea/

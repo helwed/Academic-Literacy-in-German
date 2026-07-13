@@ -49,7 +49,7 @@ if __name__ == '__main__':
     try:
         lang = sys.argv[2]
     except IndexError:
-        lang = input("Which language needs to be processed (de, fr, nl or en)?")
+        lang = input("Which language needs to be processed (de, fr, nl, sv or en)?")
     if lang == "de":
         # Prepare language model de
         nlp = spacy.load('de_core_news_sm')
@@ -60,8 +60,11 @@ if __name__ == '__main__':
         # Prepare language model nl
         nlp = spacy.load('nl_core_news_sm')
     elif lang == "en":
-        # Prepare language model nl
+        # Prepare language model en
         nlp = spacy.load('en_core_web_sm')
+    elif lang == "sv":
+        # Prepare language model sv
+        nlp = spacy.load('sv_core_news_sm')
     else:
         print("I cannot find a language with the name" + lang)
     try:
